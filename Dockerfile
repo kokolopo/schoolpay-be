@@ -13,7 +13,7 @@ COPY package*. ./
 COPY . .
 
 # Expose port 3000 pada image
-EXPOSE 5000
+EXPOSE 4321
 
 # Jalankan aplikasi saat container dimulai
 CMD [ "npm", "start" ]
