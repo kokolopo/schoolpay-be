@@ -51,4 +51,28 @@ const validateRequestLogin = [
     .withMessage("Password harus mengandung setidaknya satu karakter khusus"),
 ];
 
-export { validateRequestRegistration, validateRequestLogin };
+const validateRequestAddUser = [
+  body("fullname").notEmpty().withMessage("Fullname tidak boleh kosong"),
+  body("email").isEmail().withMessage("Email  harus valid"),
+  body("phone")
+    .isNumeric()
+    .withMessage("Nomor telepon  harus berupa angka")
+    .isLength({ min: 10, max: 15 })
+    .withMessage("Nomor telepon  harus antara 10-15 digit"),
+  body("password")
+    .isLength({ min: 8 })
+    .withMessage("Password harus memiliki minimal 8 karakter")
+    .matches(/[A-Z]/)
+    .withMessage("Password harus mengandung setidaknya satu huruf besar")
+    .matches(/\d/)
+    .withMessage("Password harus mengandung setidaknya satu angka")
+    .matches(/[!@#$%^&*(),.?":{}|<>]/)
+    .withMessage("Password harus mengandung setidaknya satu karakter khusus"),
+  body("role_id").isNumeric().withMessage("Nomor telepon  harus berupa angka"),
+];
+
+export {
+  validateRequestRegistration,
+  validateRequestLogin,
+  validateRequestAddUser,
+};

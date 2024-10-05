@@ -4,6 +4,8 @@ import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { comparePassword, hashPassword } from "../utility/gen_password.js";
+import Institutions from "../models/Institutions.js";
+import { Op, QueryTypes } from "sequelize";
 dotenv.config();
 
 const usersController = {
@@ -112,6 +114,27 @@ const usersController = {
       res.status(200).json({ message: "berhasil login!", data, accessToken });
     } catch (error) {
       res.status(500).json({ error });
+    }
+  },
+
+  addUser: async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const institutionId = req.institution_id;
+
+    try {
+      req.body.password = await hashPassword(req.body.password);
+      req.body["institution_id"] = institutionId;
+      req.body["avatar"] = "Default";
+
+      await initModels(sequelize).users.create(req.body);
+
+      res.status(201).json({ message: "berhasil menambahakan user!" });
+    } catch (error) {
+      res.status(400).json({ error });
     }
   },
 };
