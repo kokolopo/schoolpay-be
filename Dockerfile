@@ -4,7 +4,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Salin package.json dan package-lock.json ke direktori app
-COPY package*. ./
+COPY package*.json ./
 # Install dependensi dari package.json
 #RUN npm install
 # RUN npm install bcrypt --build-from-source
