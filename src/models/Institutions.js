@@ -35,7 +35,7 @@ export default class Institutions extends Model {
       {
         sequelize,
         tableName: "Institutions",
-        schema: "public",
+        // schema: "public",
         timestamps: true,
         underscored: true,
         paranoid: true,

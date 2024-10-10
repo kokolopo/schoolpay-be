@@ -51,7 +51,7 @@ export default class users extends Model {
       {
         sequelize,
         tableName: "users",
-        schema: "public",
+        // schema: "public",
         timestamps: true,
         underscored: true,
         paranoid: true,

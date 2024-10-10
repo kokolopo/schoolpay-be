@@ -27,7 +27,7 @@ export default class roles extends Model {
       {
         sequelize,
         tableName: "roles",
-        schema: "public",
+        // schema: "public",
         timestamps: true,
         underscored: true,
         paranoid: true,

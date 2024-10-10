@@ -31,7 +31,7 @@ export default class Accesses extends Model {
       {
         sequelize,
         tableName: "Accesses",
-        schema: "public",
+        // schema: "public",
         timestamps: true,
         underscored: true,
         paranoid: true,

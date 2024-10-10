@@ -19,7 +19,7 @@ export default class features extends Model {
       {
         sequelize,
         tableName: "features",
-        schema: "public",
+        // schema: "public",
         timestamps: true,
         underscored: true,
         paranoid: true,
