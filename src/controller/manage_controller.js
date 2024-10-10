@@ -57,9 +57,9 @@ const manageController = {
       FROM
         features f
       LEFT JOIN
-        "Accesses" ac ON ac.feature_id = f.feature_id AND ac.role_id = 11
+        "Accesses" ac ON ac.feature_id = f.feature_id AND ac.role_id = ${role_id}
       LEFT JOIN 
-        roles r ON ac.role_id = r.role_id AND r.role_id = 11;
+        roles r ON ac.role_id = r.role_id AND r.role_id = ${role_id};
     `;
 
     try {
