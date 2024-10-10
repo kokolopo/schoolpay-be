@@ -34,6 +34,7 @@ export default class Accesses extends Model {
         schema: "public",
         timestamps: true,
         underscored: true,
+        paranoid: true,
         indexes: [
           {
             name: "Accesses_pkey",

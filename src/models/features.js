@@ -22,6 +22,7 @@ export default class features extends Model {
         schema: "public",
         timestamps: true,
         underscored: true,
+        paranoid: true,
         indexes: [
           {
             name: "features_pkey",

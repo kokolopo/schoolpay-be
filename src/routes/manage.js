@@ -10,11 +10,18 @@ manages.get("/users/roles", verifyIsSuperAdmin, manageController.GetRoles);
 manages.get(
   "/users/roles/:role_id",
   verifyIsSuperAdmin,
-  manageController.GetRolebyID
+  manageController.GetRoleByID
 );
 manages.post(
   "/users/accesses/:role_id/:feature_id",
+  verifyIsSuperAdmin,
   manageController.addAccess
 );
+manages.put(
+  "/users/accesses/:role_id/:feature_id",
+  verifyIsSuperAdmin,
+  manageController.disableEnableAccess
+);
+manages.get("/features", verifyIsSuperAdmin, manageController.getFeatures);
 
 export default manages;

@@ -30,6 +30,7 @@ export default class roles extends Model {
         schema: "public",
         timestamps: true,
         underscored: true,
+        paranoid: true,
         indexes: [
           {
             name: "roles_pkey",
