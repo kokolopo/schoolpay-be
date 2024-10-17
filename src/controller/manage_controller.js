@@ -79,8 +79,12 @@ const manageController = {
   },
 
   addAccess: async (req, res) => {
-    const { role_id, feature_id } = req.params;
-    const sqlQuery = `SELECT * from "Accesses" WHERE role_id = :roleId AND feature_id = :featureId`;
+    let { role_id, feature_id } = req.params;
+
+    role_id = parseInt(role_id);
+    feature_id = parseInt(feature_id);
+
+    const sqlQuery = `SELECT * from Accesses WHERE role_id = :roleId AND feature_id = :featureId`;
 
     try {
       const isExist = await sequelize.query(sqlQuery, {
@@ -107,23 +111,33 @@ const manageController = {
   },
 
   disableEnableAccess: async (req, res) => {
-    const { role_id, feature_id } = req.params;
-    const sqlQuery = `SELECT * from "Accesses" WHERE role_id = :roleId AND feature_id = :featureId LIMIT 1`;
+    let { role_id, feature_id } = req.params;
+
+    role_id = parseInt(role_id);
+    feature_id = parseInt(feature_id);
+
+    const sqlQuery = `SELECT * from Accesses WHERE role_id = :roleId AND feature_id = :featureId LIMIT 1`;
 
     try {
       const [data] = await sequelize.query(sqlQuery, {
-        replacements: { roleId: role_id, featureId: feature_id },
+        replacements: {
+          roleId: role_id,
+          featureId: feature_id,
+        },
         type: QueryTypes.SELECT,
       });
 
       // Tentukan query berdasarkan nilai deleted_at
       const deletedAtQuery = data.deleted_at
-        ? `UPDATE "Accesses" SET deleted_at = NULL WHERE role_id = :roleId AND feature_id = :featureId`
-        : `UPDATE "Accesses" SET deleted_at = NOW() WHERE role_id = :roleId AND feature_id = :featureId`;
+        ? `UPDATE Accesses SET deleted_at = NULL WHERE role_id = :roleId AND feature_id = :featureId`
+        : `UPDATE Accesses SET deleted_at = NOW() WHERE role_id = :roleId AND feature_id = :featureId`;
 
       // Lakukan update
       await sequelize.query(deletedAtQuery, {
-        replacements: { roleId: role_id, featureId: feature_id },
+        replacements: {
+          roleId: role_id,
+          featureId: feature_id,
+        },
         type: QueryTypes.UPDATE,
       });
 
