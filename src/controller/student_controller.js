@@ -1,5 +1,5 @@
-import sequelize from "../config/sequelize";
-import initModels from "../models/init-models";
+import sequelize from "../config/sequelize.js";
+import initModels from "../models/init-models.js";
 
 const studentController = {
   searchByNIS: async (req, res) => {
