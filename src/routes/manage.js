@@ -24,4 +24,15 @@ manages.put(
 );
 manages.get("/features", verifyIsSuperAdmin, manageController.getFeatures);
 
+// units
+manages.post("/units/add", verifyIsSuperAdmin, manageController.addUnits);
+manages.get("/units", verifyIsSuperAdmin, manageController.fetchUnits);
+
+// Institution
+manages.get(
+  "/institutions",
+  verifyIsSuperAdmin,
+  manageController.getInstitutionsData
+);
+manages.post("/institutions");
 export default manages;

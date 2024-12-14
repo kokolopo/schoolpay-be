@@ -1,6 +1,6 @@
 import initModels from "../models/init-models.js";
 import sequelize from "../config/sequelize.js";
-import { Op, QueryTypes, Sequelize } from "sequelize";
+import { QueryTypes } from "sequelize";
 
 const manageController = {
   AddRole: async (req, res) => {
@@ -144,6 +144,90 @@ const manageController = {
         .json({ message: "berhasil mendapatkan data fitur!", data });
     } catch (error) {
       res.status(400).json({ error });
+    }
+  },
+
+  fetchUnits: async (req, res) => {
+    const status = req.query.status;
+    let data;
+
+    try {
+      switch (status) {
+        case "false":
+          data = await initModels(sequelize).units.findAll({
+            where: {
+              status: false,
+            },
+          });
+          break;
+        case "true":
+          data = await initModels(sequelize).units.findAll({
+            where: {
+              status: true,
+            },
+          });
+          break;
+
+        default:
+          data = await initModels(sequelize).units.findAll();
+          break;
+      }
+
+      res.status(200).json({ message: "berhasil mendapatkan data unit", data });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  },
+
+  addUnits: async (req, res) => {
+    const { name, status } = req.body;
+    const institutionId = req.institution_id;
+
+    try {
+      await initModels(sequelize).units.create({
+        name,
+        status,
+        institutions_id: institutionId,
+      });
+
+      res.status(200).json({ message: "berhasil menambahkan unit sekolah!" });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+  },
+
+  disableEnableUnit: async (req, res) => {
+    const unitID = req.params.unitID;
+    const status = req.params.status;
+
+    try {
+      await initModels(sequelize).units.update(
+        { status },
+        { where: { unit_id: unitID } }
+      );
+
+      res.status(200).json({
+        message: `berhasil memperbaharui status unit, unit_id ${unitID}!`,
+      });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+  },
+
+  // institutions
+  getInstitutionsData: async (req, res) => {
+    const institutionId = req.institution_id;
+
+    try {
+      const data = await initModels(sequelize).Institutions.findByPk(
+        parseInt(institutionId)
+      );
+
+      res
+        .status(200)
+        .json({ message: "berhasil mendapatkan data institusi", data });
+    } catch (error) {
+      res.status(500).json({ error });
     }
   },
 };
