@@ -5,6 +5,7 @@ import manageController from "../controller/manage_controller.js";
 
 const manages = express.Router();
 
+manages.get("/users", verifyIsSuperAdmin, manageController.getUsers);
 manages.post("/users/roles", verifyIsSuperAdmin, manageController.AddRole);
 manages.get("/users/roles", verifyIsSuperAdmin, manageController.GetRoles);
 manages.get(

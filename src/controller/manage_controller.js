@@ -230,6 +230,22 @@ const manageController = {
       res.status(500).json({ error });
     }
   },
+
+  getUsers: async (req, res) => {
+    const institutionId = req.institution_id;
+
+    try {
+      const data = await initModels(sequelize).users.findAll({
+        where: {
+          institution_id: institutionId,
+        },
+      });
+
+      res.status(200).json({ message: "berhasil mendapatkan data user", data });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
 };
 
 export default manageController;

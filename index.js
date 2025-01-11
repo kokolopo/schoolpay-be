@@ -35,6 +35,13 @@ app.use(
   )
 );
 
+app.use(
+  express.raw({
+    type: "*/*",
+    limit: "5mb", // Batasan ukuran 5MB
+  })
+);
+
 app.use(router);
 
 app.listen(port, () => console.log(`run and serve on port : ${port}`));
